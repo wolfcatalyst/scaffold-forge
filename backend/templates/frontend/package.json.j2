@@ -1,0 +1,27 @@
+{% if stack.frontend == "vue" %}
+{% set deps = ['"vue": "^3.5.0"'] %}
+{% set dev_deps = ['"vite": "^6.0.0"', '"@vitejs/plugin-vue": "^5.2.0"'] %}
+{% else %}
+{% set deps = ['"react": "^19.0.0"', '"react-dom": "^19.0.0"'] %}
+{% set dev_deps = ['"vite": "^6.0.0"', '"@vitejs/plugin-react": "^4.3.0"'] %}
+{% endif %}
+{% if stack.styling == "tailwind" %}
+{% set dev_deps = dev_deps + ['"tailwindcss": "^3.4.0"', '"autoprefixer": "^10.4.0"', '"postcss": "^8.4.0"'] %}
+{% endif %}
+{
+  "name": "{{ project_name }}-frontend",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    {{ deps | join(",\n    ") }}
+  },
+  "devDependencies": {
+    {{ dev_deps | join(",\n    ") }}
+  }
+}

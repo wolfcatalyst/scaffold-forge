@@ -1,0 +1,16 @@
+"""Local Ollama provider."""
+
+import os
+import httpx
+
+OLLAMA_BASE = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
+
+
+async def complete(prompt: str, **kwargs):
+    model = os.getenv("AI_LOCAL_MODEL", "llama3.2")
+    async with httpx.AsyncClient() as client:
+        response = await client.post(
+            f"{OLLAMA_BASE}/api/generate",
+            json={"model": model, "prompt": prompt, "stream": False},
+        )
+        return response.json()["response"]

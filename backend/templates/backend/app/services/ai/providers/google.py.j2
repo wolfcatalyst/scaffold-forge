@@ -1,0 +1,12 @@
+"""Google Gemini provider."""
+
+import os
+from google import genai
+
+client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
+
+
+async def complete(prompt: str, **kwargs):
+    model = os.getenv("AI_PRIMARY_MODEL", "gemini-2.5-flash")
+    response = await client.aio.models.generate_content(model=model, contents=prompt)
+    return response.text

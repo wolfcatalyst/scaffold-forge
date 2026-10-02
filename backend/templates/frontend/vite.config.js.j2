@@ -1,0 +1,19 @@
+import { defineConfig } from "vite";
+{% if stack.frontend == "react" %}
+import react from "@vitejs/plugin-react";
+{% elif stack.frontend == "vue" %}
+import vue from "@vitejs/plugin-vue";
+{% endif %}
+
+export default defineConfig({
+{% if stack.frontend == "react" %}
+  plugins: [react()],
+{% elif stack.frontend == "vue" %}
+  plugins: [vue()],
+{% endif %}
+  server: {
+    proxy: {
+      "/api": "http://localhost:8000",
+    },
+  },
+});

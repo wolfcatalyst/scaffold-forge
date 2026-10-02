@@ -1,0 +1,30 @@
+.PHONY: dev build clean
+
+{% if stack.docker == "yes" %}
+dev:
+	docker compose up --build
+
+build:
+	docker compose build
+
+clean:
+	docker compose down -v
+{% else %}
+dev:
+{% if stack.backend != "none" %}
+	cd backend && uvicorn app.main:app --reload &
+{% endif %}
+{% if stack.frontend in ("react", "vue") %}
+	cd frontend && npm run dev
+{% elif stack.frontend == "streamlit" %}
+	cd frontend && streamlit run app.py
+{% endif %}
+
+build:
+{% if stack.frontend in ("react", "vue") %}
+	cd frontend && npm run build
+{% endif %}
+
+clean:
+	find . -name __pycache__ -exec rm -rf {} +
+{% endif %}

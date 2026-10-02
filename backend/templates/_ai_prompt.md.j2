@@ -1,0 +1,37 @@
+I'm planning a new software project and used Scaffold Forge to choose the stack. Before I start building, review the plan below and tell me:
+
+1. Choices that look risky or mismatched for what I'm building, and what you'd pick instead.
+2. Dependencies, services or setup steps the plan needs but doesn't mention.
+3. Decisions I should make now because they're expensive to change later.
+
+Be concrete and put the most important points first.
+
+# Project: {{ project_name }}
+{% for section in spec %}
+
+## {{ section.title }}
+
+{% for item in section["items"] %}
+- **{{ item.label }}:** {{ item.value }}
+{% endfor %}
+{% endfor %}
+{% if constraint_results %}
+
+## Warnings from Scaffold Forge's rule checks
+
+{% for r in constraint_results %}
+- **{{ r.severity.value }}:** {{ r.message }}
+{% endfor %}
+{% endif %}
+{% if stack.custom_notes %}
+
+## My notes
+
+{{ stack.custom_notes }}
+{% endif %}
+
+## Planned file tree
+
+```
+{{ tree_display }}
+```

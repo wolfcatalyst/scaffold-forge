@@ -1,0 +1,77 @@
+[
+  {
+    "id": "intent",
+    "label": "Project Intent",
+    "type": "custom",
+    "description": "Establish what this project is before showing any options."
+  },
+  {
+    "id": "data",
+    "label": "Data Lifecycle",
+    "type": "custom",
+    "description": "Determine if storage is actually needed."
+  },
+  {
+    "id": "stack",
+    "label": "Stack & Framework",
+    "type": "options",
+    "description": "Core technology choices.",
+    "option_groups": ["target", "backend", "backend_language", "frontend", "styling", "component_library", "theme", "frontend_features"]
+  },
+  {
+    "id": "database",
+    "label": "Database",
+    "type": "options",
+    "description": "Storage and ORM configuration.",
+    "option_groups": ["database", "database_addons", "orm"],
+    "skip_when": { "data_lifecycle_all_no": true }
+  },
+  {
+    "id": "auth",
+    "label": "Auth & Users",
+    "type": "options",
+    "description": "Authentication and multi-user settings.",
+    "option_groups": ["auth", "multiuser"]
+  },
+  {
+    "id": "infra",
+    "label": "Infrastructure",
+    "type": "options",
+    "description": "Docker, CI/CD, proxy, and runtime.",
+    "option_groups": ["docker", "cicd", "reverse_proxy", "runtime"]
+  },
+  {
+    "id": "ai",
+    "label": "AI Integration",
+    "type": "options",
+    "description": "AI provider and pattern configuration.",
+    "option_groups": ["ai_integration", "ai_primary_provider", "ai_pattern"]
+  },
+  {
+    "id": "data_io",
+    "label": "Data Sources & Export",
+    "type": "options",
+    "description": "Where does data come from, and what formats does it need to go out in?",
+    "option_groups": ["data_sources", "data_export_formats"]
+  },
+  {
+    "id": "tooling",
+    "label": "Dev Tooling",
+    "type": "options",
+    "description": "Git, build tools, IDE, and linting.",
+    "option_groups": ["git", "build", "ide", "linting"]
+  },
+  {
+    "id": "notes",
+    "label": "Custom Notes",
+    "type": "options",
+    "description": "Anything that doesn't fit the options above.",
+    "option_groups": ["custom_notes"]
+  },
+  {
+    "id": "review",
+    "label": "Review & Generate",
+    "type": "custom",
+    "description": "Validate constraints and generate scaffold."
+  }
+]

@@ -1,0 +1,37 @@
+{
+  "name": "Wolf Processing Pipeline",
+  "config": {
+    "intent": {
+      "project_type": "internal_tool",
+      "users": "just_me",
+      "lifespan": "medium_term"
+    },
+    "data_lifecycle": {
+      "survive_restart": "no",
+      "return_to_previous": "no",
+      "search_query": "no",
+      "user_data_isolation": "no"
+    },
+    "stack": {
+      "target": "linux",
+      "backend": "fastapi",
+      "backend_language": "python",
+      "runtime": "venv",
+      "frontend": "react",
+      "styling": "tailwind",
+      "component_library": "shadcn",
+      "theme": "dark",
+      "database": "none",
+      "orm": "none",
+      "auth": "none",
+      "multiuser": "no",
+      "docker": "no",
+      "ai_integration": "single",
+      "ai_primary_provider": "anthropic",
+      "ai_pattern": "response_agent",
+      "git": "init",
+      "build": "makefile",
+      "linting": "ruff"
+    }
+  }
+}

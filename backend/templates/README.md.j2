@@ -1,0 +1,71 @@
+> **AI note:** Be sure to review this scaffold for any dependencies not mentioned for the various elements (see *Scaffold Spec* below) and mention them to the user so they can update their scaffold.
+
+# {{ project_name }}
+
+## Stack
+
+{% if stack.backend != "none" %}
+- **Backend:** {{ stack.backend }} ({{ stack.backend_language }})
+{% endif %}
+{% if stack.frontend != "none" %}
+- **Frontend:** {{ stack.frontend }}
+{% endif %}
+{% if stack.database != "none" %}
+- **Database:** {{ stack.database }}
+{% endif %}
+{% if stack.auth != "none" %}
+- **Auth:** {{ stack.auth }}
+{% endif %}
+{% if stack.docker == "yes" %}
+- **Docker:** yes
+{% endif %}
+{% if stack.ai_integration != "none" %}
+- **AI:** {{ stack.ai_primary_provider }} ({{ stack.ai_pattern }})
+{% endif %}
+
+## Setup
+
+```bash
+cp .env.example .env
+{% if stack.docker == "yes" %}
+docker compose up --build
+{% else %}
+{% if stack.backend != "none" %}
+cd backend && python -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
+uvicorn app.main:app --reload
+{% endif %}
+{% if stack.frontend in ("react", "vue") %}
+cd frontend && npm install && npm run dev
+{% elif stack.frontend == "streamlit" %}
+cd frontend && pip install -r requirements.txt && streamlit run app.py
+{% endif %}
+{% endif %}
+```
+
+## Scaffold Spec
+
+Every choice made in Scaffold Forge when this project was generated. Not every
+choice has generated files yet. Treat this list as the source of truth for what
+the project still needs.
+{% for section in spec %}
+
+### {{ section.title }}
+
+{% for item in section["items"] %}
+- **{{ item.label }}:** {{ item.value }}
+{% endfor %}
+{% endfor %}
+{% if constraint_results %}
+
+### Constraint notes
+
+{% for r in constraint_results %}
+- **{{ r.severity.value }}:** {{ r.message }}
+{% endfor %}
+{% endif %}
+{% if stack.custom_notes %}
+
+### Custom notes
+
+{{ stack.custom_notes }}
+{% endif %}

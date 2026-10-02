@@ -1,0 +1,13 @@
+{
+  "name": "{{ project_name }}",
+{% if stack.docker == "yes" %}
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "backend",
+  "workspaceFolder": "/app",
+{% else %}
+  "image": "mcr.microsoft.com/devcontainers/python:3.12",
+{% endif %}
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {}
+  }
+}

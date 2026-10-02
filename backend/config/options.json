@@ -1,0 +1,319 @@
+{
+  "intent": {
+    "project_type": [
+      { "id": "prototype", "label": "Prototype / proof of concept" },
+      { "id": "internal_tool", "label": "Internal tool (single team, not public)" },
+      { "id": "production_service", "label": "Production service / API" },
+      { "id": "saas", "label": "SaaS product (multi-tenant, public)" },
+      { "id": "client_deliverable", "label": "Client deliverable" },
+      { "id": "open_source", "label": "Open source project" },
+      { "id": "desktop_app", "label": "Desktop app (Electron)" },
+      { "id": "mobile_app", "label": "Mobile app" }
+    ],
+    "users": [
+      { "id": "just_me", "label": "Just me" },
+      { "id": "small_team", "label": "Small team (< 10)" },
+      { "id": "organization", "label": "Organization (10+)" },
+      { "id": "public", "label": "General public / customers" }
+    ],
+    "lifespan": [
+      { "id": "throwaway", "label": "Throwaway (days/weeks)" },
+      { "id": "medium_term", "label": "Medium term (months)" },
+      { "id": "long_term", "label": "Long term / maintained indefinitely" }
+    ]
+  },
+  "data_lifecycle": {
+    "survive_restart": {
+      "question": "Does any data need to survive a server restart?",
+      "options": [
+        { "id": "no", "label": "No — results are consumed immediately and discarded" },
+        { "id": "yes", "label": "Yes — users/data need to persist" }
+      ]
+    },
+    "return_to_previous": {
+      "question": "Do users come back to find previous work?",
+      "options": [
+        { "id": "no", "label": "No — each session is independent" },
+        { "id": "yes", "label": "Yes — history/state must be retrievable" }
+      ]
+    },
+    "search_query": {
+      "question": "Does anything need to be searched or queried later?",
+      "options": [
+        { "id": "no", "label": "No — data flows through and exits" },
+        { "id": "yes", "label": "Yes — needs indexing/querying" }
+      ]
+    },
+    "user_data_isolation": {
+      "question": "Is there a meaningful difference between users' data?",
+      "options": [
+        { "id": "no", "label": "No — single-user or shared state" },
+        { "id": "yes", "label": "Yes — per-user data isolation required" }
+      ]
+    }
+  },
+  "stack": {
+    "target": {
+      "label": "Target Environment",
+      "options": [
+        { "id": "linux", "label": "Linux" },
+        { "id": "windows", "label": "Windows" },
+        { "id": "windows_server", "label": "Windows Server" },
+        { "id": "macos", "label": "macOS" },
+        { "id": "electron", "label": "Electron (Desktop)" },
+        { "id": "mobile", "label": "Mobile" }
+      ]
+    },
+    "backend": {
+      "label": "Backend Framework",
+      "allow_other": true,
+      "options": [
+        { "id": "fastapi", "label": "FastAPI", "default": true },
+        { "id": "express", "label": "Express" },
+        { "id": "flask", "label": "Flask" },
+        { "id": "none", "label": "None (frontend-only)" }
+      ]
+    },
+    "backend_language": {
+      "label": "Backend Language",
+      "allow_other": true,
+      "options": [
+        { "id": "python", "label": "Python", "default": true },
+        { "id": "node", "label": "Node.js" },
+        { "id": "go", "label": "Go" }
+      ]
+    },
+    "runtime": {
+      "label": "Runtime",
+      "allow_other": true,
+      "options": [
+        { "id": "venv", "label": "venv", "default": true },
+        { "id": "system_python", "label": "System Python" },
+        { "id": "conda", "label": "Conda" },
+        { "id": "docker_only", "label": "Docker-only" }
+      ]
+    },
+    "frontend": {
+      "label": "Frontend Framework",
+      "allow_other": true,
+      "options": [
+        { "id": "react", "label": "React", "default": true },
+        { "id": "streamlit", "label": "Streamlit" },
+        { "id": "vue", "label": "Vue" },
+        { "id": "none", "label": "None (API-only)" }
+      ]
+    },
+    "styling": {
+      "label": "Styling",
+      "allow_other": true,
+      "options": [
+        { "id": "tailwind", "label": "Tailwind CSS", "default": true },
+        { "id": "plain_css", "label": "Plain CSS" },
+        { "id": "bootstrap", "label": "Bootstrap" }
+      ]
+    },
+    "component_library": {
+      "label": "Component Library",
+      "allow_other": true,
+      "options": [
+        { "id": "shadcn", "label": "shadcn/ui", "default": true },
+        { "id": "none", "label": "None" }
+      ]
+    },
+    "theme": {
+      "label": "Theme",
+      "options": [
+        { "id": "dark", "label": "Dark mode", "default": true },
+        { "id": "light", "label": "Light mode" },
+        { "id": "both", "label": "Both (toggle)" }
+      ]
+    },
+    "frontend_features": {
+      "label": "Frontend Features",
+      "multi_select": true,
+      "allow_other": true,
+      "options": [
+        { "id": "ai_chat_panel", "label": "AI chat panel" },
+        { "id": "auth_ui", "label": "Auth UI" },
+        { "id": "dashboard_layout", "label": "Dashboard layout" },
+        { "id": "data_tables", "label": "Data tables" },
+        { "id": "file_upload", "label": "File upload" },
+        { "id": "settings_page", "label": "Settings/profile page" }
+      ]
+    },
+    "database": {
+      "label": "Database",
+      "allow_other": true,
+      "options": [
+        { "id": "none", "label": "None" },
+        { "id": "json_files", "label": "JSON files" },
+        { "id": "sqlite", "label": "SQLite" },
+        { "id": "postgresql", "label": "PostgreSQL" },
+        { "id": "mysql", "label": "MySQL" },
+        { "id": "mongodb", "label": "MongoDB" }
+      ]
+    },
+    "database_addons": {
+      "label": "Database Add-ons",
+      "multi_select": true,
+      "allow_other": true,
+      "options": [
+        { "id": "redis", "label": "Redis (cache/queue)" }
+      ]
+    },
+    "orm": {
+      "label": "ORM",
+      "allow_other": true,
+      "options": [
+        { "id": "sqlalchemy", "label": "SQLAlchemy", "default": true },
+        { "id": "tortoise", "label": "Tortoise ORM" },
+        { "id": "none", "label": "None" }
+      ]
+    },
+    "auth": {
+      "label": "Authentication",
+      "allow_other": true,
+      "options": [
+        { "id": "none", "label": "None" },
+        { "id": "jwt", "label": "JWT" },
+        { "id": "oauth2", "label": "OAuth2 / Social" },
+        { "id": "api_key", "label": "API Key" },
+        { "id": "authentik", "label": "Authentik SSO" },
+        { "id": "magic_link", "label": "Magic Link" }
+      ]
+    },
+    "multiuser": {
+      "label": "Multi-user",
+      "options": [
+        { "id": "yes", "label": "Yes" },
+        { "id": "no", "label": "No" }
+      ]
+    },
+    "docker": {
+      "label": "Docker",
+      "options": [
+        { "id": "yes", "label": "Yes" },
+        { "id": "no", "label": "No" }
+      ]
+    },
+    "cicd": {
+      "label": "CI/CD",
+      "allow_other": true,
+      "options": [
+        { "id": "github_actions", "label": "GitHub Actions" },
+        { "id": "none", "label": "None" }
+      ]
+    },
+    "reverse_proxy": {
+      "label": "Reverse Proxy",
+      "allow_other": true,
+      "options": [
+        { "id": "nginx", "label": "Nginx" },
+        { "id": "caddy", "label": "Caddy" },
+        { "id": "none", "label": "None" }
+      ]
+    },
+    "ai_integration": {
+      "label": "AI Integration",
+      "options": [
+        { "id": "none", "label": "None" },
+        { "id": "single", "label": "Single provider" },
+        { "id": "multi", "label": "Multiple providers" }
+      ]
+    },
+    "ai_primary_provider": {
+      "label": "Primary AI Provider",
+      "allow_other": true,
+      "options": [
+        { "id": "anthropic", "label": "Anthropic Claude", "default": true },
+        { "id": "openai", "label": "OpenAI" },
+        { "id": "ollama", "label": "Local Ollama" },
+        { "id": "google", "label": "Google Gemini" },
+        { "id": "custom", "label": "Custom (OpenAI-compatible)" }
+      ]
+    },
+    "ai_pattern": {
+      "label": "AI Pattern",
+      "allow_other": true,
+      "options": [
+        { "id": "response_agent", "label": "Response Agent", "default": true },
+        { "id": "simple_completion", "label": "Simple Completion" },
+        { "id": "chain", "label": "Chain" },
+        { "id": "custom", "label": "Custom" }
+      ]
+    },
+    "git": {
+      "label": "Git",
+      "options": [
+        { "id": "init", "label": "git init", "default": true },
+        { "id": "pre_commit", "label": "git init + pre-commit hooks" }
+      ]
+    },
+    "build": {
+      "label": "Build Tool",
+      "allow_other": true,
+      "options": [
+        { "id": "makefile", "label": "Makefile", "default": true },
+        { "id": "none", "label": "None" }
+      ]
+    },
+    "ide": {
+      "label": "IDE Config",
+      "allow_other": true,
+      "options": [
+        { "id": "devcontainer", "label": "Dev Container" },
+        { "id": "none", "label": "None" }
+      ]
+    },
+    "linting": {
+      "label": "Linting",
+      "allow_other": true,
+      "options": [
+        { "id": "ruff", "label": "Ruff (Python)" },
+        { "id": "eslint", "label": "ESLint (JS)" },
+        { "id": "both", "label": "Both" },
+        { "id": "none", "label": "None" }
+      ]
+    },
+    "data_sources": {
+      "label": "Data Sources",
+      "multi_select": true,
+      "allow_other": true,
+      "options": [
+        { "id": "graph_api", "label": "Microsoft Graph API" },
+        { "id": "rest_api", "label": "REST API (external)" },
+        { "id": "graphql_api", "label": "GraphQL API" },
+        { "id": "mcp", "label": "MCP (Model Context Protocol)" },
+        { "id": "sql_server", "label": "SQL Server / ODBC (external)" },
+        { "id": "external_postgres", "label": "PostgreSQL (external)" },
+        { "id": "s3_blob", "label": "S3 / Blob Storage" },
+        { "id": "filesystem", "label": "File system (local/network)" },
+        { "id": "sftp", "label": "SFTP" },
+        { "id": "websocket", "label": "WebSocket" },
+        { "id": "webhook", "label": "Webhook receiver" },
+        { "id": "message_queue", "label": "Message queue (RabbitMQ/Kafka)" },
+        { "id": "scraping", "label": "Web scraping" }
+      ]
+    },
+    "data_export_formats": {
+      "label": "Data Export Formats",
+      "multi_select": true,
+      "allow_other": true,
+      "options": [
+        { "id": "json", "label": "JSON" },
+        { "id": "csv", "label": "CSV" },
+        { "id": "pdf", "label": "PDF" },
+        { "id": "html", "label": "HTML" },
+        { "id": "docx", "label": "DOCX (Word)" },
+        { "id": "xlsx", "label": "XLSX (Excel)" },
+        { "id": "xml", "label": "XML" },
+        { "id": "markdown", "label": "Markdown" }
+      ]
+    },
+    "custom_notes": {
+      "label": "Custom Notes",
+      "type": "textarea",
+      "placeholder": "Anything else Claude Code should know when scaffolding this project? Special requirements, patterns, constraints..."
+    }
+  }
+}

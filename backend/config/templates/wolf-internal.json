@@ -1,0 +1,37 @@
+{
+  "name": "Wolf Internal Tool",
+  "config": {
+    "intent": {
+      "project_type": "internal_tool",
+      "users": "small_team",
+      "lifespan": "medium_term"
+    },
+    "data_lifecycle": {
+      "survive_restart": "yes",
+      "return_to_previous": "yes",
+      "search_query": "no",
+      "user_data_isolation": "no"
+    },
+    "stack": {
+      "target": "linux",
+      "backend": "fastapi",
+      "backend_language": "python",
+      "runtime": "venv",
+      "frontend": "react",
+      "styling": "tailwind",
+      "component_library": "shadcn",
+      "theme": "dark",
+      "database": "sqlite",
+      "orm": "sqlalchemy",
+      "auth": "api_key",
+      "multiuser": "no",
+      "docker": "no",
+      "ai_integration": "single",
+      "ai_primary_provider": "anthropic",
+      "ai_pattern": "response_agent",
+      "git": "init",
+      "build": "makefile",
+      "linting": "ruff"
+    }
+  }
+}

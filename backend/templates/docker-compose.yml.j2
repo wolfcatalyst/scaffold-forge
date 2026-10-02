@@ -1,0 +1,55 @@
+services:
+{% if stack.backend != "none" %}
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    env_file: .env
+{% if stack.database == "postgresql" %}
+    depends_on:
+      - db
+{% endif %}
+
+{% endif %}
+{% if stack.frontend in ("react", "vue") %}
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+
+{% endif %}
+{% if stack.database == "postgresql" %}
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: dbname
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+{% endif %}
+{% if "redis" in stack.database_addons %}
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+{% endif %}
+{% if stack.reverse_proxy == "nginx" %}
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - backend
+
+{% endif %}
+{% if stack.database == "postgresql" %}
+volumes:
+  pgdata:
+{% endif %}

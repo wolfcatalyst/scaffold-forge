@@ -1,0 +1,28 @@
+fastapi>=0.115.0
+uvicorn[standard]>=0.34.0
+pydantic>=2.0.0
+pydantic-settings>=2.0.0
+python-dotenv>=1.0.0
+{% if stack.database in ("postgresql", "sqlite") and stack.orm == "sqlalchemy" %}
+sqlalchemy>=2.0.0
+{% endif %}
+{% if stack.database == "postgresql" %}
+psycopg2-binary>=2.9.0
+alembic>=1.13.0
+{% endif %}
+{% if stack.auth == "jwt" %}
+python-jose[cryptography]>=3.3.0
+passlib[bcrypt]>=1.7.0
+{% endif %}
+{% if "anthropic" in ai_providers %}
+anthropic>=0.45.0
+{% endif %}
+{% if "openai" in ai_providers or "custom" in ai_providers %}
+openai>=1.60.0
+{% endif %}
+{% if "ollama" in ai_providers %}
+httpx>=0.28.0
+{% endif %}
+{% if "google" in ai_providers %}
+google-genai>=1.0.0
+{% endif %}

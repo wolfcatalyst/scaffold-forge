@@ -1,0 +1,22 @@
+"""Routes AI tasks to the correct provider based on task type."""
+
+import os
+
+
+async def route_request(prompt: str, *, task_type: str = "default", **kwargs):
+    """Route to appropriate provider. Override via task_type or env config."""
+    provider = os.getenv("AI_PRIMARY_PROVIDER", "{{ stack.ai_primary_provider }}")
+
+    if task_type == "fast":
+        provider = os.getenv("AI_FAST_PROVIDER", "openai")
+    elif task_type == "local":
+        provider = os.getenv("AI_LOCAL_PROVIDER", "ollama")
+
+{% for p in ai_providers %}
+    {{ "if" if loop.first else "elif" }} provider == "{{ p }}":
+        from .providers.{{ p }} import complete
+{% endfor %}
+    else:
+        raise ValueError(f"Unknown AI provider: {provider}")
+
+    return await complete(prompt, **kwargs)

@@ -1,0 +1,327 @@
+[
+  {
+    "id": "docker-windows-server",
+    "if": {
+      "target": "windows_server",
+      "docker": "yes"
+    },
+    "severity": "error",
+    "message": "Docker on Windows Server 2025 via Rancher Desktop loses container state on restart. This will break your deployment. Switch to a Linux target, or disable Docker and use venv instead.",
+    "war_story": "A production deployment, March 2026 — Docker stripped out on deadline day because containers would not survive restart on Server 2025. Cost half a day.",
+    "then": {
+      "suggest_disable": [
+        "docker"
+      ],
+      "suggest_alternatives": [
+        "linux",
+        "venv"
+      ]
+    }
+  },
+  {
+    "id": "electron-no-docker",
+    "if": {
+      "target": "electron",
+      "docker": "yes"
+    },
+    "severity": "warn",
+    "message": "Electron apps run on the user's desktop, not inside a container. Docker is fine for development tooling or a separate server component (e.g. a web version or sync API), but the desktop app itself won't use it.",
+    "then": {}
+  },
+  {
+    "id": "electron-no-reverse-proxy",
+    "if": {
+      "target": "electron",
+      "reverse_proxy": [
+        "nginx",
+        "caddy"
+      ]
+    },
+    "severity": "hard",
+    "message": "Electron apps don't sit behind a reverse proxy. Set Reverse Proxy to None.",
+    "then": {
+      "disable": [
+        "nginx",
+        "caddy"
+      ],
+      "require": {
+        "reverse_proxy": "none"
+      }
+    }
+  },
+  {
+    "id": "electron-single-user",
+    "if": {
+      "target": "electron",
+      "multiuser": "yes"
+    },
+    "severity": "hard",
+    "message": "Electron apps are single-user desktop installs. Set Multi-user to No.",
+    "then": {
+      "require": {
+        "multiuser": "no"
+      }
+    }
+  },
+  {
+    "id": "mobile-no-docker",
+    "if": {
+      "target": "mobile",
+      "docker": "yes"
+    },
+    "severity": "warn",
+    "message": "The mobile app itself won't run in Docker. Docker is still a good fit for its API backend, which deploys separately.",
+    "then": {}
+  },
+  {
+    "id": "mobile-no-reverse-proxy",
+    "if": {
+      "target": "mobile",
+      "reverse_proxy": [
+        "nginx",
+        "caddy"
+      ]
+    },
+    "severity": "hard",
+    "message": "Mobile apps don't use a reverse proxy. Set Reverse Proxy to None.",
+    "then": {
+      "disable": [
+        "nginx",
+        "caddy"
+      ],
+      "require": {
+        "reverse_proxy": "none"
+      }
+    }
+  },
+  {
+    "id": "authentik-requires-docker",
+    "if": {
+      "auth": "authentik",
+      "docker": "no"
+    },
+    "severity": "hard",
+    "message": "Authentik SSO runs its identity provider stack in Docker. Enable Docker or pick another auth method.",
+    "then": {
+      "require": {
+        "docker": "yes"
+      }
+    }
+  },
+  {
+    "id": "authentik-requires-linux",
+    "if": {
+      "auth": "authentik",
+      "target": {
+        "not": "linux"
+      }
+    },
+    "severity": "hard",
+    "message": "Authentik SSO requires a Linux target. Switch the target to Linux or pick another auth method.",
+    "then": {
+      "require": {
+        "target": "linux"
+      }
+    }
+  },
+  {
+    "id": "sqlite-multiuser-saas",
+    "if": {
+      "database": "sqlite",
+      "multiuser": "yes",
+      "project_type": "saas"
+    },
+    "severity": "error",
+    "message": "SQLite is not suitable for multi-user SaaS. Concurrent writes will cause locking issues under real load. Use PostgreSQL.",
+    "war_story": "SQLite write locking becomes a real problem the moment you have concurrent users. Fine for single-user internal tools. Not fine for anything multi-user in production.",
+    "then": {
+      "suggest": {
+        "database": "postgresql"
+      }
+    }
+  },
+  {
+    "id": "no-storage-needed",
+    "if": {
+      "data_lifecycle_result": "ephemeral"
+    },
+    "severity": "info",
+    "message": "No persistent storage needed. Database options are hidden.",
+    "then": {
+      "hide": [
+        "database",
+        "database_addons",
+        "orm"
+      ],
+      "set": {
+        "database": "none"
+      }
+    }
+  },
+  {
+    "id": "docker-only-runtime-requires-docker",
+    "if": {
+      "runtime": "docker_only",
+      "docker": "no"
+    },
+    "severity": "hard",
+    "message": "Docker-only runtime requires Docker to be enabled.",
+    "then": {
+      "require": {
+        "docker": "yes"
+      }
+    }
+  },
+  {
+    "id": "multiuser-requires-auth",
+    "if": {
+      "multiuser": "yes",
+      "auth": "none"
+    },
+    "severity": "error",
+    "message": "Multi-user mode requires an authentication method. Select an auth option.",
+    "then": {
+      "suggest": {
+        "auth": "jwt"
+      }
+    }
+  },
+  {
+    "id": "saas-no-auth",
+    "if": {
+      "project_type": "saas",
+      "auth": "none"
+    },
+    "severity": "error",
+    "message": "SaaS products need authentication. Without auth, you have no user isolation, no billing identity, no access control.",
+    "then": {
+      "suggest": {
+        "auth": "jwt"
+      }
+    }
+  },
+  {
+    "id": "docker-no-reverseproxy-disabled",
+    "if": {
+      "docker": "no",
+      "reverse_proxy": [
+        "nginx",
+        "caddy"
+      ]
+    },
+    "severity": "error",
+    "message": "Reverse proxy options require Docker. Enable Docker or set Reverse Proxy to None.",
+    "then": {
+      "disable": [
+        "nginx",
+        "caddy"
+      ]
+    }
+  },
+  {
+    "id": "postgres-docker-autoconfig",
+    "if": {
+      "database": "postgresql",
+      "docker": "yes"
+    },
+    "severity": "info",
+    "message": "PostgreSQL container will be auto-added to docker-compose.yml."
+  },
+  {
+    "id": "redis-not-primary",
+    "if": {
+      "database": "none",
+      "database_addons": [
+        "redis"
+      ]
+    },
+    "severity": "warn",
+    "message": "Redis is designed as a cache/queue add-on, not a primary database. Consider whether you actually need persistent storage first.",
+    "then": {}
+  },
+  {
+    "id": "prototype-overengineering",
+    "if": {
+      "project_type": "prototype",
+      "lifespan": "throwaway"
+    },
+    "severity": "warn",
+    "message": "This is a throwaway prototype. Docker, PostgreSQL, and complex auth add overhead you probably don't need. Keep it simple.",
+    "then": {
+      "suggest": {
+        "docker": "no",
+        "database": "sqlite",
+        "auth": "none",
+        "runtime": "venv"
+      }
+    }
+  },
+  {
+    "id": "client-deliverable-maintenance",
+    "if": {
+      "project_type": "client_deliverable",
+      "auth": "authentik"
+    },
+    "severity": "warn",
+    "message": "You selected authentik SSO for a client deliverable. The client will need to run and maintain an authentik instance. Is that intentional?",
+    "then": {}
+  },
+  {
+    "id": "cors-wildcard-production",
+    "if": {
+      "project_type": "saas"
+    },
+    "severity": "info",
+    "message": "CORS will be configured with explicit origins via .env variable. No wildcard * in production.",
+    "war_story": "FastAPI default CORS config allows * origins. Fine for dev, dangerous in production."
+  },
+  {
+    "id": "shadcn-requires-react",
+    "if": {
+      "component_library": "shadcn",
+      "frontend": [
+        "vue",
+        "streamlit",
+        "none"
+      ]
+    },
+    "severity": "hard",
+    "message": "shadcn/ui requires React. Switch frontend to React or disable shadcn/ui.",
+    "then": {
+      "require": {
+        "frontend": "react"
+      }
+    }
+  },
+  {
+    "id": "shadcn-requires-tailwind",
+    "if": {
+      "component_library": "shadcn",
+      "styling": [
+        "plain_css",
+        "bootstrap"
+      ]
+    },
+    "severity": "hard",
+    "message": "shadcn/ui requires Tailwind CSS. Switch styling to Tailwind or disable shadcn/ui.",
+    "then": {
+      "require": {
+        "styling": "tailwind"
+      }
+    }
+  },
+  {
+    "id": "devcontainer-requires-docker",
+    "if": {
+      "ide": "devcontainer",
+      "docker": "no"
+    },
+    "severity": "hard",
+    "message": "Dev Containers require Docker.",
+    "then": {
+      "require": {
+        "docker": "yes"
+      }
+    }
+  }
+]

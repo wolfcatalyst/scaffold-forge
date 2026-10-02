@@ -1,0 +1,18 @@
+"""Custom OpenAI-compatible provider (vLLM, LM Studio, OpenRouter, etc.)."""
+
+import os
+from openai import AsyncOpenAI
+
+client = AsyncOpenAI(
+    base_url=os.getenv("CUSTOM_AI_BASE_URL"),
+    api_key=os.getenv("CUSTOM_AI_API_KEY", "not-needed"),
+)
+
+
+async def complete(prompt: str, **kwargs):
+    model = os.getenv("AI_PRIMARY_MODEL", "")
+    response = await client.chat.completions.create(
+        model=model,
+        messages=[{"role": "user", "content": prompt}],
+    )
+    return response.choices[0].message.content

@@ -1,0 +1,7 @@
+{% if stack.styling == "tailwind" %}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+{% else %}
+body { margin: 0; font-family: system-ui, sans-serif; }
+{% endif %}

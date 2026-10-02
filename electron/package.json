@@ -1,0 +1,65 @@
+{
+  "name": "scaffold-forge",
+  "version": "1.0.0",
+  "description": "Scaffold Forge - Wolf Edition",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File ../scripts/build-desktop.ps1",
+    "package:win": "electron-builder --win --x64",
+    "test:packaged": "node smoke-ui.cjs",
+    "dev": "electron ."
+  },
+  "author": "Wolf",
+  "license": "SEE LICENSE IN LICENSE",
+  "type": "commonjs",
+  "build": {
+    "appId": "com.wolf.scaffold-forge",
+    "productName": "Scaffold Forge",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js"
+    ],
+    "extraResources": [
+      {
+        "from": "../build/backend/scaffold-backend",
+        "to": "backend"
+      },
+      {
+        "from": "../frontend/out",
+        "to": "frontend"
+      }
+    ],
+    "win": {
+      "icon": "assets/scaffold-forge.ico",
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "signtoolOptions": {
+        "sign": "./sign-hook.cjs",
+        "signingHashAlgorithms": [
+          "sha256"
+        ]
+      }
+    },
+    "nsis": {
+      "artifactName": "${productName}-${version}-${arch}-nsis.${ext}",
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true
+    },
+    "portable": {
+      "artifactName": "${productName}-${version}-${arch}-portable.${ext}"
+    }
+  },
+  "devDependencies": {
+    "electron": "^40.7.0",
+    "electron-builder": "^26.8.1",
+    "playwright-core": "^1.63.0"
+  }
+}

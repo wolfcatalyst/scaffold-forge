@@ -1,0 +1,10 @@
+:80 {
+	handle /api/* {
+		reverse_proxy backend:8000
+	}
+{% if stack.frontend in ("react", "vue") %}
+	handle {
+		reverse_proxy frontend:5173
+	}
+{% endif %}
+}

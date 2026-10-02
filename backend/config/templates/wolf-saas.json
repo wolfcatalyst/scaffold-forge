@@ -1,0 +1,41 @@
+{
+  "name": "Wolf Standard SaaS Stack",
+  "config": {
+    "intent": {
+      "project_type": "saas",
+      "users": "public",
+      "lifespan": "long_term"
+    },
+    "data_lifecycle": {
+      "survive_restart": "yes",
+      "return_to_previous": "yes",
+      "search_query": "yes",
+      "user_data_isolation": "yes"
+    },
+    "stack": {
+      "target": "linux",
+      "backend": "fastapi",
+      "backend_language": "python",
+      "runtime": "venv",
+      "frontend": "react",
+      "styling": "tailwind",
+      "component_library": "shadcn",
+      "theme": "dark",
+      "database": "postgresql",
+      "database_addons": [
+        "redis"
+      ],
+      "orm": "sqlalchemy",
+      "auth": "jwt",
+      "multiuser": "yes",
+      "docker": "yes",
+      "cicd": "github_actions",
+      "ai_integration": "multi",
+      "ai_primary_provider": "anthropic",
+      "ai_pattern": "response_agent",
+      "git": "pre_commit",
+      "build": "makefile",
+      "linting": "both"
+    }
+  }
+}

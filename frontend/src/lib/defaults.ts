@@ -1,0 +1,57 @@
+import type { ScaffoldConfig } from "./api";
+
+export const defaultConfig: ScaffoldConfig = {
+  project_name: "my-project",
+  intent: {
+    project_type: "",
+    users: "",
+    lifespan: "",
+  },
+  data_lifecycle: {
+    survive_restart: "no",
+    return_to_previous: "no",
+    search_query: "no",
+    user_data_isolation: "no",
+  },
+  stack: {
+    target: "linux",
+    backend: "fastapi",
+    backend_language: "python",
+    runtime: "venv",
+    frontend: "react",
+    styling: "tailwind",
+    component_library: "shadcn",
+    theme: "dark",
+    frontend_features: [],
+    database: "none",
+    database_addons: [],
+    orm: "sqlalchemy",
+    auth: "none",
+    multiuser: "no",
+    docker: "no",
+    cicd: "none",
+    reverse_proxy: "none",
+    ai_integration: "none",
+    ai_primary_provider: "anthropic",
+    ai_pattern: "response_agent",
+    git: "init",
+    build: "makefile",
+    ide: "none",
+    linting: "none",
+    data_sources: [],
+    data_export_formats: [],
+    custom_notes: "",
+  },
+};
+
+export const STEPS = [
+  { id: "intent", label: "Project Intent" },
+  { id: "data", label: "Data Lifecycle" },
+  { id: "stack", label: "Stack & Framework" },
+  { id: "database", label: "Database" },
+  { id: "auth", label: "Auth & Users" },
+  { id: "infra", label: "Infrastructure" },
+  { id: "ai", label: "AI Integration" },
+  { id: "tooling", label: "Dev Tooling" },
+  { id: "review", label: "Review & Generate" },
+] as const;

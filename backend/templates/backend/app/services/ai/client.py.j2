@@ -1,0 +1,8 @@
+"""Unified AI client abstraction with provider routing."""
+
+from .router import route_request
+
+
+async def complete(prompt: str, *, task_type: str = "default", **kwargs):
+    """Route a completion request to the appropriate provider."""
+    return await route_request(prompt, task_type=task_type, **kwargs)

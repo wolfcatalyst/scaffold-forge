@@ -1,0 +1,4 @@
+Generated using the built-in image generation tool.
+512px PNG and multiresolution ICO exported with alpha preserved.
+
+Use case: logo-brand. Create a single polished raster Windows application icon for Scaffold Forge — Wolf Edition, requested size 512 x 512 pixels. Transparent background with real alpha. A bold stylized front-facing wolf head forged from dark graphite and silver metal, integrated into a compact anvil-shaped lower silhouette, with restrained warm ember-orange accents suggesting a forge. Elegant geometric planes, strong readable silhouette, thick shapes and minimal detail, recognizable at 32 pixels. Centered square composition with generous 10% transparent padding; all artwork fully inside frame. Premium desktop utility aesthetic, crisp edges, subtle dimensional shading. No text, no letters, no border, no mockup, no surrounding scene, no watermark. Output one finished icon.
